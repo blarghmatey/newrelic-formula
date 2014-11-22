@@ -1,3 +1,6 @@
+include:
+  - .daemon
+
 newrelic-php:
   pkg.installed:
     - name: newrelic-php5
@@ -6,7 +9,7 @@ newrelic-php:
   {% if grains['os_family'] == 'RedHat' %}
     - name: /etc/php.d/newrelic.ini
   {% elif grains['os_family'] == 'Debian' %}
-    - name: /etc/php5/apache2/conf.d/newrelic.ini
+    - name: /etc/php5/mods-available/newrelic.ini
   {% endif %}
     - pattern: 'newrelic.license = .*'
     - repl: newrelic.license = "{{ salt['pillar.get']('newrelic:apikey', '') }}"
